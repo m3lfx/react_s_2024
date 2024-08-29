@@ -5,7 +5,7 @@ import Nav from './Nav';
 function App() {
   return (
     <div className="container pb-5">
-      <Nav />
+      <Nav title="home page" name="sample name"/>
       <br />
       <h1>MERN CRUD</h1>
     </div>

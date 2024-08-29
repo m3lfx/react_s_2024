@@ -25,7 +25,7 @@ const Create = () => {
     return (
 
         <div className="container p-5">
-            <Nav />
+            <Nav title="create component" name="124" />
             <h1>CREATE POST</h1>
             <br />
             <form>
