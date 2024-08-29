@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Nav from './Nav';
 
 const Create = () => {
     const [state, setState] = useState({
@@ -24,6 +25,7 @@ const Create = () => {
     return (
 
         <div className="container p-5">
+            <Nav />
             <h1>CREATE POST</h1>
             <br />
             <form>
