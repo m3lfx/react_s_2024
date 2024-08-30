@@ -27,7 +27,7 @@ const Create = () => {
         event.preventDefault();
         // console.table({ title, content, user });
         axios
-            .post(`http://localhost:4000/api/post`, { title, content, user })
+            .post(`${process.env.REACT_APP_API}/post`, { title, content, user })
             .then(response => {
                 console.log(response);
                 // empty state
