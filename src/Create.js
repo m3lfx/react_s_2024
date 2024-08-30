@@ -47,7 +47,7 @@ const Create = () => {
             <Nav title="create component" name="124" />
             <h1>CREATE POST</h1>
             <br />
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label className="text-muted">Title</label>
                     <input type="text" className="form-control" placeholder="Post title" required value={title} onChange={handleChange('title')} />
