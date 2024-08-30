@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Nav from './Nav';
+import axios from 'axios'
 
 const Create = () => {
     const [state, setState] = useState({
@@ -20,6 +21,24 @@ const Create = () => {
     const handleChange = name => event => {
         // console.log('name', name, 'event', event.target.value);
         setState({ ...state, [name]: event.target.value });
+    };
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        // console.table({ title, content, user });
+        axios
+            .post(`http://localhost:4000/api/post`, { title, content, user })
+            .then(response => {
+                console.log(response);
+                // empty state
+                setState({ ...state, title: '', content: '', user: '' });
+                // show sucess alert
+                alert(`Post titled ${response.data.title} is created`);
+            })
+            .catch(error => {
+                console.log(error.response);
+                alert(error.response.data.error);
+            });
     };
     console.log(state)
     return (
