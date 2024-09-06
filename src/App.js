@@ -16,9 +16,29 @@ const App = () => {
       })
       .catch(error => alert('Error fetching posts'));
   };
+
+  const deleteConfirm = slug => {
+    let answer = window.confirm('Are you sure you want to delete this post?');
+    if (answer) {
+      deletePost(slug);
+    }
+  };
+
+  const deletePost = slug => {
+    // console.log('delete', slug, ' post');
+    axios
+      .delete(`${process.env.REACT_APP_API}/post/${slug}`)
+      .then(response => {
+        alert(response.data.message);
+        fetchPosts();
+      })
+      .catch(error => alert('Error deleting post'));
+  };
   useEffect(() => {
     fetchPosts();
   }, []);
+
+
 
 
   return (
@@ -39,6 +59,15 @@ const App = () => {
               <span className="badge">{new Date(post.createdAt).toLocaleString()}</span>
             </p>
           </div>
+          <Link to={`/post/update/${post.slug}`} className="btn btn-sm btn-outline-warning">
+            Update
+          </Link>
+          <button
+            onClick={() => deleteConfirm(post.slug)}
+            className="btn btn-sm btn-outline-danger ml-1"
+          >
+            Delete
+          </button>
         </div>
       )) : <h1>no posts</h1>}
     </div>
