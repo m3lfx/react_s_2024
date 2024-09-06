@@ -11,12 +11,11 @@ const Update = () => {
     });
 
    
-    let {slug}  = useParams()
+    let { slug }  = useParams()
     let navigate = useNavigate()
     const { title, content, user } = state;
     
     useEffect(() => {
-        
         axios
             .get(`${process.env.REACT_APP_API}/post/${slug}`)
             .then(response => {
@@ -39,9 +38,10 @@ const Update = () => {
             .then(response => {
                 console.log(response);
                 const { title, content, slug, user } = response.data;
-                // empty state
+               
                 setState({ ...state, title, content, slug, user });
                 navigate('/')
+                
                 // show sucess alert
                 // alert(`Post titled ${title} is updated`);
             })
