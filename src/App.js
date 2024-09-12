@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Nav from './Nav';
 import { Link } from 'react-router-dom';
+import { getUser } from './helper';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -59,6 +60,8 @@ const App = () => {
               <span className="badge">{new Date(post.createdAt).toLocaleString()}</span>
             </p>
           </div>
+          {getUser() && 
+          <>
           <Link to={`/post/update/${post.slug}`} className="btn btn-sm btn-outline-warning">
             Update
           </Link>
@@ -67,7 +70,8 @@ const App = () => {
             className="btn btn-sm btn-outline-danger ml-1"
           >
             Delete
-          </button>
+          </button></>}
+          
         </div>
       )) : <h1>no posts</h1>}
     </div>
