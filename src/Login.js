@@ -1,13 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { authenticate, getUser } from './helper';
 import Nav from './Nav';
 const Login = () => {
     const [state, setState] = useState({
         name: '',
         password: ''
     });
+    let navigate = useNavigate()
     const { name, password } = state;
     const handleChange = name => event => {
         // console.log('name', name, 'event', event.target.value);
@@ -17,20 +19,24 @@ const Login = () => {
     const handleSubmit = event => {
         event.preventDefault();
         console.table({ name, password });
-        // axios
-        //     .post(`${process.env.REACT_APP_API}/post`, { title, content, user })
-        //     .then(response => {
-        //         console.log(response);
-        //         // empty state
-        //         setState({ ...state, title: '', content: '', user: '' });
-        //         // show sucess alert
-        //         alert(`Post titled ${response.data.title} is created`);
-        //     })
-        //     .catch(error => {
-        //         console.log(error.response);
-        //         alert(error.response.data.error);
-        //     });
+        axios
+            .post(`${process.env.REACT_APP_API}/login`, { name, password })
+            .then(response => {
+                console.log(response);
+                // empty state
+                setState({ ...state, name, password });
+                // show sucess alert
+                authenticate(response, () => navigate("/create"));
+            })
+            .catch(error => {
+                console.log(error.response);
+                alert(error.response.data.error);
+            });
     };
+
+    useEffect(() => {
+        getUser() && navigate('/');
+    }, []);
 
     return (
         <div className="container pb-5">
@@ -62,7 +68,7 @@ const Login = () => {
                     />
                 </div>
                 <div>
-                    <button className="btn btn-primary">Create</button>
+                    <button className="btn btn-primary">login</button>
                 </div>
             </form></div>
     )
