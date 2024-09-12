@@ -20,7 +20,15 @@ const RoutedApp = () => {
                   />
                 {/* <Route path="/create" exact="true" element={<Create />} /> */}
                 <Route path="/post/:slug" exact="true" element={<SinglePost />} />
-                <Route path="/post/update/:slug" exact="true" element={<Update />} />
+                <Route path="/post/update/:slug" exact="true"
+                    element={
+                     <PrivateRoute redirectTo="/login">
+                         <Update />
+                         
+                      </PrivateRoute>
+                    }
+                  />
+                {/* <Route path="/post/update/:slug" exact="true" element={<Update />} /> */}
                 <Route path="/login" exact="true" element={<Login />} />
             </Routes>
         </Router>
