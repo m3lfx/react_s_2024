@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Nav from './Nav';
 import axios from 'axios'
+import { getToken } from './helper';
 
 const Create = () => {
     const [state, setState] = useState({
@@ -27,7 +28,12 @@ const Create = () => {
         event.preventDefault();
         // console.table({ title, content, user });
         axios
-            .post(`${process.env.REACT_APP_API}/post`, { title, content, user })
+            .post(`${process.env.REACT_APP_API}/post`, { title, content, user }, {
+                headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+
+            })
             .then(response => {
                 console.log(response);
                 // empty state

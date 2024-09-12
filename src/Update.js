@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Nav from './Nav';
+import { getToken } from './helper';
 const Update = () => {
     const [state, setState] = useState({
         title: '',
@@ -34,7 +35,11 @@ const Update = () => {
         event.preventDefault();
         // console.table({ title, content, user });
         axios
-            .put(`${process.env.REACT_APP_API}/post/${slug}`, { title, content, user })
+            .put(`${process.env.REACT_APP_API}/post/${slug}`, { title, content, user } , {
+                headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+            })
             .then(response => {
                 console.log(response);
                 const { title, content, slug, user } = response.data;
